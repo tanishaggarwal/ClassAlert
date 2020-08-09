@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity2"
-            android:excludeFromRecents="true"></activity>
+            android:excludeFromRecents="true">
+        </activity>
 
         <service
             android:name=".notificationlistener1"

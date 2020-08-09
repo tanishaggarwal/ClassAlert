@@ -2,7 +2,9 @@ package com.example.classalert;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.provider.AlarmClock;
 import android.service.notification.NotificationListenerService;
@@ -15,17 +17,23 @@ import java.util.Calendar;
 
 public class notificationlistener1 extends NotificationListenerService {
 
+    SharedPreferences preferences;
+
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         super.onNotificationPosted(sbn);
+
+        preferences = this.getSharedPreferences("Name", Context.MODE_PRIVATE);
 
 //        Log.d("asdf","**********  onNotificationPosted");
 //        Toast.makeText(getApplicationContext(), sbn.getPackageName(),Toast.LENGTH_LONG).show();
         if(sbn.getPackageName().equals("com.whatsapp"))
         {
+            String text = sbn.getNotification().extras.getString("android.text");
 
-            if(sbn.getNotification().extras.getString("android.text")!=null && sbn.getNotification().extras.getString("android.text").contains("https://meet.google.com"))
+            if(text!=null && !preferences.getString("Value","").equals(text) && text.contains("https://meet.google.com"))
             {
+                preferences.edit().putString("Value",text).apply();
                 startActivity(new Intent(this, MainActivity2.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             }
           //  Log.d("asdf",sbn.getNotification().extras.getString("android.title").toString());
