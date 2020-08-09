@@ -13,7 +13,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class notificationlistener extends NotificationListenerService {
+public class notificationlistener1 extends NotificationListenerService {
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
@@ -27,7 +27,6 @@ public class notificationlistener extends NotificationListenerService {
             if(sbn.getNotification().extras.getString("android.text")!=null && sbn.getNotification().extras.getString("android.text").contains("https://meet.google.com"))
             {
                 startActivity(new Intent(this, MainActivity2.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-
             }
           //  Log.d("asdf",sbn.getNotification().extras.getString("android.title").toString());
 
