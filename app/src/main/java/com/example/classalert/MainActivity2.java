@@ -31,25 +31,47 @@ public class MainActivity2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        PowerManager pm = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
+//        wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP
+//                | PowerManager.ON_AFTER_RELEASE, "app:myapplock");
+//        wakeLock.acquire();
+//        km = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
+//        final KeyguardManager.KeyguardLock kl = km.newKeyguardLock("MyKeyguardLock");
+//        kl.disableKeyguard();
+
         setContentView(R.layout.activity_main2);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN |
-                        WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
-                        WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
-                        WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN |
-                        WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
-                        WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
-                        WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
-        km = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
-        final KeyguardManager.KeyguardLock kl = km.newKeyguardLock("MyKeyguardLock");
-        kl.disableKeyguard();
+        if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.FROYO) {
+            // only for gingerbread and newer versions
+            (this).getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+            ( this).getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+            ( this).getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+
+            KeyguardManager manager =(KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
+            KeyguardManager.KeyguardLock lock = manager.newKeyguardLock("abc");
+            lock.disableKeyguard();
+
+        } else {
+
+            KeyguardManager km = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
+            KeyguardManager.KeyguardLock keyguardLock = km.newKeyguardLock("TAG");
+            (this).getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+            (this).getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+            (this).getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+
+            keyguardLock.disableKeyguard();
+            PowerManager pm = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
+            PowerManager.WakeLock wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK
+                    | PowerManager.ACQUIRE_CAUSES_WAKEUP
+                    | PowerManager.ON_AFTER_RELEASE
+                    | PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "app:MyWakeLock");
+
+            wakeLock.acquire();
+        }
 
 
-        PowerManager pm = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
-        wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP
-                | PowerManager.ON_AFTER_RELEASE, "MyWakeLock");
-        wakeLock.acquire();
+
 
         ivAlarm = findViewById(R.id.ivAlarm);
         tvAlert = findViewById(R.id.tvAlert);
@@ -76,15 +98,15 @@ public class MainActivity2 extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        wakeLock.release();
+      //  wakeLock.release();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         if(mp!=null && mp.isPlaying()) {
-            mp.stop();
-            finish();
+            //mp.stop();
+           // finish();
         }
     }
 
