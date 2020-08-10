@@ -15,7 +15,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class notificationlistener1 extends NotificationListenerService {
+public class notificationlistener extends NotificationListenerService {
 
     SharedPreferences preferences;
 

@@ -48,13 +48,13 @@ public class MainActivity2 extends AppCompatActivity {
             ( this).getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
             ( this).getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 
-            KeyguardManager manager =(KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
-            KeyguardManager.KeyguardLock lock = manager.newKeyguardLock("abc");
+             km =(KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
+            KeyguardManager.KeyguardLock lock = km.newKeyguardLock("abc");
             lock.disableKeyguard();
 
         } else {
 
-            KeyguardManager km = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
+             km = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
             KeyguardManager.KeyguardLock keyguardLock = km.newKeyguardLock("TAG");
             (this).getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
             (this).getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
@@ -84,12 +84,21 @@ public class MainActivity2 extends AppCompatActivity {
         mp= MediaPlayer.create(this,R.raw.fantasy_alarm_clock);
 //        mp.setLooping(true);
         mp.start();
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                finish();
+            }
+        });
         btn=findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(mp.isPlaying()) {
-                    finish();
+                    if(km.inKeyguardRestrictedInputMode()) {
+                        mp.stop();
+                    }
+                        finish();
                 }
             }
         });
@@ -98,15 +107,28 @@ public class MainActivity2 extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-      //  wakeLock.release();
+        if(wakeLock!=null) {
+            wakeLock.release();
+        }
+
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(mp!=null && mp.isPlaying()) {
+          mp.stop();
+        }
+        }
 
     @Override
     protected void onPause() {
         super.onPause();
         if(mp!=null && mp.isPlaying()) {
-            //mp.stop();
-           // finish();
+            if(!km.inKeyguardRestrictedInputMode()) {
+               // mp.stop();
+                finish();
+            }
         }
     }
 
