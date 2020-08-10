@@ -7,12 +7,68 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/inst1"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:textColor="#6200EA"
+        android:gravity="center"
+        android:fontFamily="@font/abeezee"
+        android:textSize="20dp"
+        android:paddingHorizontal="20dp"
+        android:text="* Whatsapp notifications must be on . There must not be password protection on whatsapp . "
+
+        app:layout_constraintBottom_toTopOf="@+id/inst"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
+    <TextView
+        android:id="@+id/inst"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="30dp"
+
+        android:layout_height="wrap_content"
+        android:textColor="#6200EA"
+        android:fontFamily="@font/abeezee"
+        android:textSize="20dp"
+        android:paddingHorizontal="20dp"
+        android:text="* Please allow the notifiaction access to the app in settings to get the google meet alert by clicking the button given below"
+
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/inst1"></TextView>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:background="@drawable/btn_background"
+        android:text="allow access"
+        android:textColor="#ffffff"
+        app:layout_constraintTop_toBottomOf="@id/inst"
+        app:layout_constraintBottom_toTopOf="@id/inst2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_editor_absoluteY="683dp" />
+    <TextView
+        android:id="@+id/inst2"
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="30dp"
+
+        android:layout_height="wrap_content"
+        android:textColor="#6200EA"
+        android:fontFamily="@font/abeezee"
+        android:textSize="20dp"
+        android:paddingHorizontal="20dp"
+        android:text="This app will alarm whenever you receive the google meet link on the whatsapp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/button2"></TextView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

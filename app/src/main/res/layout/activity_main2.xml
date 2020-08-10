@@ -10,30 +10,23 @@
         android:id="@+id/llAlert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="100dp"
         android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="UseCompoundDrawables">
-
-        <ImageView
-            android:id="@+id/ivGMeet"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/google_meet"/>
 
         <TextView
             android:id="@+id/tvAlert"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Class Alert"
-            android:fontFamily="sans-serif-condensed"
-            android:textSize="20sp"
             android:layout_gravity="center_vertical"
-            android:textColor="#000000"
-            android:textStyle="bold"/>
+            android:fontFamily="@font/abeezee"
+            android:text="Google Meet Alert"
+            android:textColor="#6200EA"
+            android:textSize="36sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -41,11 +34,11 @@
         android:id="@+id/ivAlarm"
         android:layout_width="120dp"
         android:layout_height="120dp"
+        android:src="@drawable/alarm_animation"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="60sp"
-        android:src="@drawable/alarm_animation"
-        app:layout_constraintTop_toBottomOf="@+id/llAlert"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button"

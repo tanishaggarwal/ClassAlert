@@ -4,6 +4,8 @@
     package="com.example.classalert">
 
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"></uses-permission>
 
     <application
 
@@ -15,7 +17,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity2"
+            android:showOnLockScreen="true"
+            android:clearTaskOnLaunch="true"
+            android:showWhenLocked="true"
+            android:launchMode="singleInstance"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             android:excludeFromRecents="true">
+
         </activity>
 
         <service
@@ -36,6 +44,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
